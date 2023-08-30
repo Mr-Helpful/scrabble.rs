@@ -1,14 +1,12 @@
-mod trie;
-mod trie_paths;
-use crate::trie::Trie;
-
-fn bit_range(s: u8, e: u8) -> u32 {
-  (1 << e + 1) - (1 << s)
-}
+// mod dawg;
+mod trie_ptr;
+mod word;
+use crate::trie_ptr::Trie;
 
 fn main() {
   println!("Hello, world!");
 
-  let t1 = Trie::empty();
+  // this is too slow.
+  let t1 = Trie::str(".......");
   println!("{}", t1.is_empty());
 }
