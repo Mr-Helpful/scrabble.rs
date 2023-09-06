@@ -1,7 +1,7 @@
 pub mod random;
 pub mod test;
 
-use super::word::{from_index, Word};
+use crate::{letter::from_index, word::Word};
 use std::{array, io, path::Path};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -46,9 +46,7 @@ impl Trie {
       *last = last.replace("\n│", "\n ");
     }
 
-    String::from_iter(child_strs)
-      .trim_end()
-      .to_owned()
+    String::from_iter(child_strs).trim_end().to_owned()
   }
 
   pub fn len(&self) -> usize {
@@ -113,7 +111,7 @@ impl Trie {
   }
 
   pub fn str(word: &str) -> Self {
-    Self::word(word.try_into().unwrap())
+    Self::word(word.parse().unwrap())
   }
 
   pub fn all(len: usize) -> Self {
@@ -172,9 +170,9 @@ impl Iterator for Trie {
     }
 
     self.children.iter_mut().enumerate().find_map(|(i, child)| {
-      child.as_mut().and_then(|trie| {
-        trie.next().map(|s| format!("{}{}", from_index(i), s))
-      })
+      child
+        .as_mut()
+        .and_then(|trie| trie.next().map(|s| format!("{}{}", from_index(i), s)))
     })
   }
 }
@@ -234,7 +232,7 @@ impl Trie {
   }
 
   pub fn has(&self, word: &str) -> bool {
-    self.has_word(word.try_into().unwrap())
+    self.has_word(word.parse().unwrap())
   }
 
   fn has_all_word(&self, word: Word) -> bool {
@@ -250,7 +248,7 @@ impl Trie {
   }
 
   pub fn has_all(&self, word: &str) -> bool {
-    self.has_all_word(word.try_into().unwrap())
+    self.has_all_word(word.parse().unwrap())
   }
 
   fn add_assign(&mut self, word: &str) {

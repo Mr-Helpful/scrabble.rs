@@ -169,7 +169,7 @@ mod set_tests {
   fn assert_strs<F: Fn(&str) -> bool>(test: F, no_samples: usize, max_len: usize) {
     assert_all(
       |word: Word| {
-        let mut s: String = word.into();
+        let mut s = word.to_string();
         s.truncate(max_len);
         test(s.as_str())
       },

@@ -185,7 +185,7 @@ impl Dawg {
   }
 
   pub fn str(word: &str) -> Self {
-    Self::word(word.try_into().unwrap())
+    Self::word(word.parse().unwrap())
   }
 
   pub fn all(len: usize) -> Self {

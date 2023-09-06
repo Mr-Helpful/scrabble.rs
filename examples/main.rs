@@ -1,7 +1,5 @@
-// mod dawg;
-mod trie_ptr;
-mod word;
-use crate::trie_ptr::Trie;
+extern crate scrabble;
+use scrabble::trie_ptr::Trie;
 
 fn main() {
   println!("Hello, world!");

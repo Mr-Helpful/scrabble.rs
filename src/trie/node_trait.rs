@@ -36,7 +36,7 @@ pub trait TrieNode: Clone + Sized {
   fn from_word(mut word: Word) -> Self {
     let mut node = Self::empty();
 
-    if let Some(letter) = word.next() {
+    if let Some(letter) = word.pop() {
       let sub = Self::from_word(word);
       for c in letter {
         node.set_child(c, Some(sub.clone()))

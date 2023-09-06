@@ -6,6 +6,7 @@ use std::{
 
 mod node_trait;
 pub use node_trait::TrieNode;
+use nom::error::Error;
 
 pub struct Trie<N: TrieNode>(N);
 
@@ -20,9 +21,9 @@ impl<N: TrieNode> From<Word> for Trie<N> {
   }
 }
 impl<N: TrieNode> FromStr for Trie<N> {
-  type Err = String;
+  type Err = Error<String>;
   fn from_str(s: &str) -> Result<Self, Self::Err> {
-    Ok(s.parse::<Word>()?.into())
+    Ok(Self(N::from_word(s.parse::<Word>()?)))
   }
 }
 
